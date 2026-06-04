@@ -5,13 +5,13 @@ import { AuthResponse } from '../../models/auth-response.model';
 import { DoctorRegisterRequest } from '../../models/doctor-register-request.model';
 import { LoginRequest } from '../../models/login-request.model';
 import { PatientRegisterRequest } from '../../models/patient-register-request.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly apiUrl = 'http://localhost:8080/api/auth';
-
+    private apiUrl = `${environment.apiUrl}/auth`;
   constructor(private http: HttpClient) {}
 
   login(request: LoginRequest): Observable<AuthResponse> {

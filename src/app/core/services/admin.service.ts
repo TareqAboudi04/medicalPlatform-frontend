@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DashboardResponse } from '../../models/dashboard-response.model';
 import { UserResponse } from '../../models/user-response.model';
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  private readonly apiUrl = 'http://localhost:8080/api/admin';
+  private apiUrl = `${environment.apiUrl}/admin`;
 
   constructor(private http: HttpClient) {}
 

@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppointmentRequest } from '../../models/appointment-request.model';
 import { AppointmentResponse } from '../../models/appointment-response.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService {
-  private readonly apiUrl = 'http://localhost:8080/api/appointments';
+  private apiUrl = `${environment.apiUrl}/appointments`;
 
   constructor(private http: HttpClient) {}
 
