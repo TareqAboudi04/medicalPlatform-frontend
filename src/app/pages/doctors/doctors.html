@@ -1,0 +1,88 @@
+<section class="doctors-page">
+  <div class="page-header">
+    <p class="eyebrow">Doctors Directory</p>
+    <h1>Browse doctors</h1>
+    <p>Search doctors by specialty, name, or location.</p>
+  </div>
+
+  <div class="search-panel">
+    <div class="search-field">
+      <label for="specialty">Search by specialty</label>
+      <div class="search-row">
+        <input
+          id="specialty"
+          type="text"
+          [(ngModel)]="specialty"
+          placeholder="Example: Cardiologist"
+        />
+        <button type="button" (click)="searchBySpecialty()">Search</button>
+      </div>
+    </div>
+
+    <div class="search-field">
+      <label for="name">Search by name</label>
+      <div class="search-row">
+        <input
+          id="name"
+          type="text"
+          [(ngModel)]="name"
+          placeholder="Example: Ahmad"
+        />
+        <button type="button" (click)="searchByName()">Search</button>
+      </div>
+    </div>
+
+    <div class="search-field">
+      <label for="location">Search by location</label>
+      <div class="search-row">
+        <input
+          id="location"
+          type="text"
+          [(ngModel)]="location"
+          placeholder="Example: Amman"
+        />
+        <button type="button" (click)="searchByLocation()">Search</button>
+      </div>
+    </div>
+
+    <button class="show-all-button" type="button" (click)="getAllDoctors()">
+      Show All Doctors
+    </button>
+  </div>
+
+  <p class="loading-message" *ngIf="loading()">Loading doctors...</p>
+  <p class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+  <p class="empty-message" *ngIf="!loading() && !errorMessage() && doctors().length === 0">
+    No doctors found.
+  </p>
+
+  <div class="doctors-grid" *ngIf="!loading() && !errorMessage() && doctors().length > 0">
+    @for (doctor of doctors(); track doctor.doctorId) {
+    <article class="doctor-card">
+      <div class="avatar">
+        {{ doctor.firstName.charAt(0) }}{{ doctor.lastName.charAt(0) }}
+      </div>
+
+      <div class="doctor-content">
+        <div class="card-top">
+          <div>
+            <h2>Dr. {{ doctor.firstName }} {{ doctor.lastName }}</h2>
+            <p class="specialization">{{ doctor.specialization }}</p>
+          </div>
+        </div>
+
+        <p class="bio">{{ doctor.bio }}</p>
+
+        <div class="doctor-info">
+          <p><strong>Location:</strong> {{ doctor.location }}</p>
+          <p><strong>Phone:</strong> {{ doctor.phone }}</p>
+        </div>
+
+        <a class="book-button" [routerLink]="['/book-appointment', doctor.doctorId]">
+          Book Appointment
+        </a>
+      </div>
+    </article>
+    }
+  </div>
+</section>

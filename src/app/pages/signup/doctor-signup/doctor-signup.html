@@ -1,0 +1,101 @@
+<section class="signup-page">
+  <div class="signup-card">
+    <div class="signup-header">
+      <h1>Create Doctor Account</h1>
+      <p>Join Doctorak and make your practice easier to find</p>
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First name</label>
+          <input id="firstName" type="text" formControlName="firstName" placeholder="Tareq" />
+
+          <p class="validation-message" *ngIf="firstName?.hasError('required') && (firstName?.dirty || firstName?.touched)">
+            First name is required.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last name</label>
+          <input id="lastName" type="text" formControlName="lastName" placeholder="Aboudi" />
+
+          <p class="validation-message" *ngIf="lastName?.hasError('required') && (lastName?.dirty || lastName?.touched)">
+            Last name is required.
+          </p>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email" placeholder="tareq@gmail.com" />
+
+          <p class="validation-message" *ngIf="email?.hasError('required') && (email?.dirty || email?.touched)">
+            Email is required.
+          </p>
+          <p class="validation-message" *ngIf="email?.hasError('email') && (email?.dirty || email?.touched)">
+            Please enter a valid email address.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input id="phone" type="tel" formControlName="phone" placeholder="0790000000" />
+
+          <p class="validation-message" *ngIf="phone?.hasError('required') && (phone?.dirty || phone?.touched)">
+            Phone is required.
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" placeholder="At least 6 characters" />
+
+        <p class="validation-message" *ngIf="password?.hasError('required') && (password?.dirty || password?.touched)">
+          Password is required.
+        </p>
+        <p class="validation-message" *ngIf="password?.hasError('minlength') && (password?.dirty || password?.touched)">
+          Password must be at least 6 characters.
+        </p>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="specialization">Specialization</label>
+          <input id="specialization" type="text" formControlName="specialization" placeholder="Cardiology" />
+
+          <p class="validation-message" *ngIf="specialization?.hasError('required') && (specialization?.dirty || specialization?.touched)">
+            Specialization is required.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input id="location" type="text" formControlName="location" placeholder="Amman" />
+
+          <p class="validation-message" *ngIf="location?.hasError('required') && (location?.dirty || location?.touched)">
+            Location is required.
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="bio">Bio</label>
+        <textarea id="bio" formControlName="bio" rows="4" placeholder="Experienced cardiologist."></textarea>
+
+        <p class="validation-message" *ngIf="bio?.hasError('required') && (bio?.dirty || bio?.touched)">
+          Bio is required.
+        </p>
+      </div>
+
+      <p class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+      <p class="success-message" *ngIf="successMessage()">{{ successMessage() }}</p>
+
+      <button type="submit" [disabled]="loading()">
+        {{ loading() ? 'Creating account...' : 'Create Account' }}
+      </button>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,69 @@
+.home-page {
+  align-items: center;
+  background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 50%, #eff6ff 100%);
+  display: flex;
+  min-height: calc(100vh - 73px);
+  padding: 56px 24px;
+}
+
+.welcome-section {
+  margin: 0 auto;
+  max-width: 780px;
+  text-align: center;
+}
+
+.eyebrow {
+  color: #0f766e;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
+h1 {
+  color: #111827;
+  font-size: 56px;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.description {
+  color: #4b5563;
+  font-size: 19px;
+  line-height: 1.7;
+  margin: 24px auto 34px;
+  max-width: 650px;
+}
+
+.primary-button {
+  background: #0f766e;
+  border-radius: 8px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 14px 24px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.primary-button:hover {
+  background: #115e59;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .home-page {
+    min-height: auto;
+    padding: 44px 20px;
+  }
+
+  h1 {
+    font-size: 38px;
+  }
+
+  .description {
+    font-size: 17px;
+  }
+}

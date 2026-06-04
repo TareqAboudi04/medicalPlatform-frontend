@@ -1,0 +1,37 @@
+<section class="prescription-page">
+  <div class="prescription-shell">
+    <div class="page-header">
+      <h1>Prescription</h1>
+      <p>Review medicine and care instructions</p>
+    </div>
+
+    <p class="loading-message" *ngIf="loading()">Loading prescription...</p>
+    <p class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+
+    <article class="prescription-card" *ngIf="prescription() as item">
+      <div class="meta-grid">
+        <div>
+          <span>Patient</span>
+          <strong>{{ item.patientName }}</strong>
+        </div>
+
+        <div>
+          <span>Doctor</span>
+          <strong>{{ item.doctorName }}</strong>
+        </div>
+
+        <div>
+          <span>Created</span>
+          <strong>{{ formatCreatedAt(item.createdAt) }}</strong>
+        </div>
+      </div>
+
+      <div class="medicine-section">
+        <h2>{{ item.medicineName }}</h2>
+        <p>{{ item.instructions }}</p>
+      </div>
+
+      <a routerLink="/my-appointments" class="back-link">Back to appointments</a>
+    </article>
+  </div>
+</section>

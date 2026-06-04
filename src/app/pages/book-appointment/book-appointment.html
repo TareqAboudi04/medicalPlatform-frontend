@@ -1,0 +1,48 @@
+<section class="booking-page">
+  <div class="booking-card">
+    <div class="booking-header">
+      <h1>Book Appointment</h1>
+      <p>Choose a date and time for your visit</p>
+    </div>
+
+    <form [formGroup]="appointmentForm" class="booking-form">
+      <div class="form-group">
+        <label for="appointmentDate">Appointment date</label>
+        <input id="appointmentDate" type="date" formControlName="appointmentDate" />
+
+        <p class="validation-message" *ngIf="appointmentDate?.hasError('required') && (appointmentDate?.dirty || appointmentDate?.touched)">
+          Appointment date is required.
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="appointmentTime">Appointment time</label>
+        <input id="appointmentTime" type="time" formControlName="appointmentTime" />
+
+        <p class="validation-message" *ngIf="appointmentTime?.hasError('required') && (appointmentTime?.dirty || appointmentTime?.touched)">
+          Appointment time is required.
+        </p>
+      </div>
+
+      <p class="availability-message available" *ngIf="available() === true">
+        This appointment time is available.
+      </p>
+      <p class="availability-message unavailable" *ngIf="available() === false">
+        This appointment time is not available.
+      </p>
+
+      <p class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+      <p class="success-message" *ngIf="successMessage()">{{ successMessage() }}</p>
+
+      <div class="button-row">
+        <button type="button" class="secondary-button" (click)="checkAvailability()" [disabled]="checkingAvailability() || loading()">
+          {{ checkingAvailability() ? 'Checking...' : 'Check Availability' }}
+        </button>
+
+        <button type="button" (click)="bookAppointment()" [disabled]="loading() || checkingAvailability()">
+          {{ loading() ? 'Booking...' : 'Book Appointment' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

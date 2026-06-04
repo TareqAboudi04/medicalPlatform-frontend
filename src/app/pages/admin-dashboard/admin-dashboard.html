@@ -1,0 +1,83 @@
+<section class="admin-page">
+  <div class="admin-shell">
+    <div class="admin-header">
+      <div>
+        <h1>Admin Dashboard</h1>
+        <p>Review doctor requests and monitor Doctorak activity</p>
+      </div>
+
+      <button type="button" class="refresh-button" (click)="refreshDashboard()" [disabled]="loading()">
+        Refresh
+      </button>
+    </div>
+
+    <p class="loading-message" *ngIf="loading()">Loading admin data...</p>
+    <p class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+    <p class="success-message" *ngIf="successMessage()">{{ successMessage() }}</p>
+
+    <div class="stats-grid" *ngIf="dashboard() as counts">
+      <article class="stat-card">
+        <span>Approved Doctors</span>
+        <strong>{{ counts.approvedDoctors }}</strong>
+      </article>
+
+      <article class="stat-card">
+        <span>Approved Patients</span>
+        <strong>{{ counts.approvedPatients }}</strong>
+      </article>
+
+      <article class="stat-card">
+        <span>Appointments</span>
+        <strong>{{ counts.appointments }}</strong>
+      </article>
+    </div>
+
+    <section class="pending-section">
+      <div class="section-header">
+        <h2>Pending Doctors</h2>
+        <span>{{ pendingDoctors().length }} pending</span>
+      </div>
+
+      <p class="empty-message" *ngIf="!loading() && pendingDoctors().length === 0">
+        No pending doctors.
+      </p>
+
+      <div class="table-wrapper" *ngIf="pendingDoctors().length > 0">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let doctor of pendingDoctors()">
+              <td>{{ getDoctorName(doctor) }}</td>
+              <td>{{ doctor.email }}</td>
+              <td>{{ doctor.role }}</td>
+              <td>
+                <span class="status-badge">{{ doctor.status }}</span>
+              </td>
+              <td>
+                <div class="action-buttons">
+                  <button type="button" class="approve-button" (click)="approveDoctor(doctor.userId)" [disabled]="loading()">
+                    Approve
+                  </button>
+                  <button type="button" class="reject-button" (click)="rejectDoctor(doctor.userId)" [disabled]="loading()">
+                    Reject
+                  </button>
+                  <button type="button" class="block-button" (click)="blockUser(doctor.userId)" [disabled]="loading()">
+                    Block
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</section>

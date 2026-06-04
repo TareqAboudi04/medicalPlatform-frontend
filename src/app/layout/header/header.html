@@ -1,0 +1,25 @@
+<header class="site-header">
+  <nav class="navbar">
+    <a class="logo" routerLink="/">Doctorak</a>
+
+    <div class="nav-links">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Home
+      </a>
+      <a routerLink="/doctors" routerLinkActive="active">Doctors</a>
+      <a *ngIf="isAdmin()" routerLink="/admin/dashboard" routerLinkActive="active">Admin Dashboard</a>
+      <a *ngIf="isPatient()" routerLink="/my-appointments" routerLinkActive="active">My Appointments</a>
+      <a *ngIf="isDoctor()" routerLink="/doctor-appointments" routerLinkActive="active">Doctor Appointments</a>
+      <a *ngIf="!isLoggedIn()" routerLink="/signup/patient" routerLinkActive="active">Patient Signup</a>
+      <a *ngIf="!isLoggedIn()" routerLink="/signup/doctor" routerLinkActive="active">Doctor Signup</a>
+      <a *ngIf="!isLoggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
+      <button *ngIf="isLoggedIn()" type="button" class="logout-button" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </nav>
+</header>

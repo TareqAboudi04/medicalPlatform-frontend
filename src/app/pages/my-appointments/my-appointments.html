@@ -1,0 +1,99 @@
+<section class="appointments-page">
+  <div class="appointments-shell">
+    <div class="page-header">
+      <div>
+        <h1>My Appointments</h1>
+        <p>{{ userRole === 'DOCTOR' ? 'Track your patient visits' : 'Track upcoming and past visits' }}</p>
+      </div>
+
+      <div class="filter-field">
+        <label for="status">Status</label>
+        <select
+          id="status"
+          [ngModel]="selectedStatus()"
+          (ngModelChange)="onStatusChange($event)"
+        >
+          <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="loading-message" *ngIf="loading()">Loading appointments...</p>
+    <p class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+    <p class="success-message" *ngIf="successMessage()">{{ successMessage() }}</p>
+    <p class="empty-message" *ngIf="!loading() && !errorMessage() && appointments().length === 0">
+      No appointments found.
+    </p>
+
+    <div class="appointments-grid" *ngIf="!loading() && appointments().length > 0">
+      <article class="appointment-card" *ngFor="let appointment of appointments()">
+        <div class="card-header">
+          <div>
+            <h2>{{ userRole === 'DOCTOR' ? appointment.patientName : appointment.doctorName }}</h2>
+            <p>{{ userRole === 'DOCTOR' ? 'Patient appointment' : appointment.doctorSpecialization }}</p>
+          </div>
+
+          <span class="status-badge" [class]="appointment.status.toLowerCase()">
+            {{ appointment.status }}
+          </span>
+        </div>
+
+        <div class="appointment-details">
+          <p><strong>Date:</strong> {{ appointment.appointmentDate }}</p>
+          <p><strong>Time:</strong> {{ appointment.appointmentTime }}</p>
+        </div>
+
+        <div
+          class="appointment-actions"
+          *ngIf="canApprove(appointment) || canComplete(appointment) || canCancel(appointment) || canCreatePrescription(appointment) || canViewPrescription(appointment)"
+        >
+          <button
+            *ngIf="canApprove(appointment)"
+            type="button"
+            class="approve-button"
+            (click)="approveAppointment(appointment.appointmentId)"
+            [disabled]="loading()"
+          >
+            Approve Appointment
+          </button>
+
+          <button
+            *ngIf="canComplete(appointment)"
+            type="button"
+            class="complete-button"
+            (click)="completeAppointment(appointment.appointmentId)"
+            [disabled]="loading()"
+          >
+            Complete
+          </button>
+
+          <a
+            *ngIf="canCreatePrescription(appointment)"
+            class="prescription-button"
+            [routerLink]="['/prescriptions/create', appointment.appointmentId]"
+          >
+            Create Prescription
+          </a>
+
+          <a
+            *ngIf="canViewPrescription(appointment)"
+            class="view-button"
+            [routerLink]="['/prescriptions/appointment', appointment.appointmentId]"
+          >
+            View Prescription
+          </a>
+
+          <button
+            *ngIf="canCancel(appointment)"
+            type="button"
+            class="cancel-button"
+            (click)="cancelAppointment(appointment.appointmentId)"
+            [disabled]="loading()"
+          >
+            Cancel Appointment
+          </button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

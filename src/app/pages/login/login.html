@@ -1,0 +1,47 @@
+<section class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Login</h1>
+      <p>Access your Doctorak account</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="test@test.com"
+        />
+
+        <p class="validation-message" *ngIf="email?.hasError('required') && (email?.dirty || email?.touched)">
+          Email is required.
+        </p>
+        <p class="validation-message" *ngIf="email?.hasError('email') && (email?.dirty || email?.touched)">
+          Please enter a valid email address.
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+
+        <p class="validation-message" *ngIf="password?.hasError('required') && (password?.dirty || password?.touched)">
+          Password is required.
+        </p>
+      </div>
+
+      <p class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+
+      <button type="submit" [disabled]="loading()">
+        {{ loading() ? 'Logging in...' : 'Login' }}
+      </button>
+    </form>
+  </div>
+</section>
